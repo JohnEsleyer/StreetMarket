@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "43711531729",
+    "project_id": "streetmarket-7a53f",
+    "storage_bucket": "streetmarket-7a53f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43711531729:android:71e422564aabdca4e1d3f0",
+        "android_client_info": {
+          "package_name": "com.example.streetmarket"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43711531729-5c8l7js48ntbttav8ptjrtnvco0mofa0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9hlq6BdRIsZHSCLGfzBxVAmpt6KP08ew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43711531729-5c8l7js48ntbttav8ptjrtnvco0mofa0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
