@@ -1,56 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:streetmarket/components/main_screen.dart';
 import 'components/search_bar.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+  MaterialColor myColor = MaterialColor(0xFFFFC107, {
+    50: Color(0xFFFFF8E1),
+    100: Color(0xFFFFECB3),
+    200: Color(0xFFFFE082),
+    300: Color(0xFFFFD54F),
+    400: Color(0xFFFFCA28),
+    500: Color(0xFFFFC107),
+    600: Color(0xFFFFB300),
+    700: Color(0xFFFFA000),
+    800: Color(0xFFFF8F00),
+    900: Color.fromARGB(255, 0, 0, 0),
+  });
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: myColor,
       ),
-      home: const SearchBar(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              'x',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
+      home: MainScreen(),
     );
   }
 }
