@@ -4,6 +4,7 @@ import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'samples/register_sample.dart';
+import 'samples/login_sample.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: myColor,
       ),
       home: Scaffold(
-        body: RegisterForm(),
+        body: LoginForm(),
       ),
     );
   }
