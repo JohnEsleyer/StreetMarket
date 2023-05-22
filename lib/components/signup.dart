@@ -9,7 +9,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Sign up Screen")),
+      body: Container(
+        child: Column(
+          children: [
+            Row(
+              children: [],
+            ),
+            
+          ],
+        ),
+      ),
     );
   }
 }

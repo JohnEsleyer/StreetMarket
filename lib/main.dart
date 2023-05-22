@@ -3,6 +3,7 @@ import 'package:streetmarket/components/main_screen.dart';
 import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'samples/register_sample.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: myColor,
       ),
-      home: MainScreen(),
+      home: Scaffold(
+        body: RegisterForm(),
+      ),
     );
   }
 }
