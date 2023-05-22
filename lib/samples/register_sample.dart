@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/UserData.dart';
 
 class RegisterForm extends StatefulWidget {
   @override
@@ -35,6 +38,11 @@ class _RegisterFormState extends State<RegisterForm> {
           email: email,
           password: password,
         );
+
+        Provider.of<UserModel>(context).name = name;
+        Provider.of<UserModel>(context).email = email;
+        Provider.of<UserModel>(context).password = password;
+
         print('Credential: $credential');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {

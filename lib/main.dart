@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:streetmarket/components/main_screen.dart';
+import 'package:streetmarket/models/UserData.dart';
 import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -32,8 +34,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: myColor,
       ),
-      home: Scaffold(
-        body: LoginForm(),
+      home: Provider(
+        create: (context) => UserModel(),
+        child: Scaffold(
+          body: LoginForm(),
+        ),
       ),
     );
   }
