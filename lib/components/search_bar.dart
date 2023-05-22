@@ -13,14 +13,26 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
-        child: Row(
-          children: [
-
-          ],
-          )
-        ),
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 200,
+          ),
+          Container(
+            color: Colors.blue,
+            height: 45,
+            width: double.infinity,
+            child: Row(
+              children: [
+                Column(
+                  children: [
+                  ],
+                ),
+              ],
+              )
+            ),
+        ],
+      ),
     );
   }
 }

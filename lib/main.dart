@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: myColor,
       ),
-      home: Scaffold(
-        body: LoginForm(),
+      home: const Scaffold(
+        body: SearchBar(),
       ),
     );
   }
