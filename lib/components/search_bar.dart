@@ -46,6 +46,7 @@ class _SearchBarState extends State<SearchBar> {
                   children: [
                     Neumorphic(
                       style: const NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
                         depth: -4,
                         intensity: 0.8,
                         color: Colors.white
@@ -53,11 +54,26 @@ class _SearchBarState extends State<SearchBar> {
                       child: Container(
                         width: 325,
                         height: 42,
+                        padding: const EdgeInsets.fromLTRB(13, 0, 10, 1.5),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
                         ),
+                        child: const TextField(
+                          decoration: InputDecoration(
+                            hintText: 'Search here',
+                            hintStyle: TextStyle(
+                              color: Colors.black45
+                              ),
+                            border: InputBorder.none,
+                          ),
+                          )
                       ),
-                    ),   
+                    ),
+                    // NeumorphicButton(
+                    //   child: const Icon(
+                    //     Iconsax.filter,
+                    //   ),
+                    // )
                   ],
                 ),
               ],
