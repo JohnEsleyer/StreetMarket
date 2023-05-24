@@ -34,12 +34,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: myColor,
       ),
-// <<<<<<< HEAD
       home: const Scaffold(
         body: SearchBar(),
-// =======
-      
-// >>>>>>> d764edd6991e676c0c0df3a31cb6ed9a1d367a9b
       ),
     );
   }
