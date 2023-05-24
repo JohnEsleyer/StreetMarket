@@ -47,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
         model.setUserDoc(documentReference);
         model.setUserCred(credential);
         model.setUserCollection(userCollection);
-        Navigator.of(context).pushNamed('/profile');
+        Navigator.of(context).popAndPushNamed('/profile');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
@@ -63,8 +63,8 @@ class _LoginFormState extends State<LoginForm> {
         }
       });
 
-      // Reset form after successful login
-      _formKey.currentState!.reset();
+      // // Reset form after successful login
+      // _formKey.currentState!.reset();
     }
   }
 

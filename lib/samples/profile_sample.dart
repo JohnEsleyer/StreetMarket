@@ -4,8 +4,13 @@ import 'package:provider/provider.dart';
 
 import '../models/UserData.dart';
 
-class UserProfileScreen extends StatelessWidget {
-  late String _name;
+class UserProfileScreen extends StatefulWidget {
+  @override
+  _UserProfileScreenState createState() => _UserProfileScreenState();
+}
+
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  late String _name = "Name";
 
   Future<DocumentSnapshot> getSnapshot(DocumentReference doc) async {
     return await doc.get();
@@ -17,8 +22,11 @@ class UserProfileScreen extends StatelessWidget {
     var doc = model.getUserDoc;
     doc.get().then((documentSnapshot) {
       // var data = documentSnapshot.data();
-      _name =
-          (documentSnapshot.data()! as Map<String, dynamic>)['name'] as String;
+
+      setState(() {
+        _name = (documentSnapshot.data()! as Map<String, dynamic>)['name']
+            as String;
+      });
     });
     return Scaffold(
       appBar: AppBar(
