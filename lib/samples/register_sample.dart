@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streetmarket/samples/profile_sample.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/UserData.dart';
 
@@ -35,18 +36,29 @@ class _RegisterFormState extends State<RegisterForm> {
       String name = _nameController.text;
 
       try {
-        final credential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+        final credential = await Provider.of<UserModel>(context, listen: false)
+            .auth
+            .createUserWithEmailAndPassword(
+              email: email,
+              password: password,
+            );
 
-        Provider.of<UserModel>(context, listen: false).name = name;
-        Provider.of<UserModel>(context, listen: false).email = email;
-        Provider.of<UserModel>(context, listen: false).password = password;
+        // Document for the user
+        DocumentReference userDocument =
+            Provider.of<UserModel>(context, listen: false)
+                .db
+                .collection('Users')
+                .doc(credential.user?.uid);
 
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => UserProfileScreen()));
+        print('UID: ${credential.user?.uid}');
+
+        // Write data to the document
+        await userDocument.set({
+          'name': name,
+          'email': email,
+        });
+
+        Navigator.of(context).pushNamed('/profile');
 
         print('Credential: $credential');
       } on FirebaseAuthException catch (e) {

@@ -39,15 +39,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: myColor,
-      ),
-      home: ChangeNotifierProvider(
-        create: (_) => UserModel(auth: _auth, db: _db),
-        child: Scaffold(
-          body: RegisterForm(),
+    return ChangeNotifierProvider(
+      create: (_) => UserModel(auth: _auth, db: _db),
+      child: MaterialApp(
+        routes: {
+          '/': (context) {
+            return Scaffold(
+              body: RegisterForm(),
+            );
+          },
+          '/profile': (context) {
+            return UserProfileScreen();
+          }
+        },
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: myColor,
         ),
       ),
     );
