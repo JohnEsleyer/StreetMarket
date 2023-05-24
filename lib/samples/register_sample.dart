@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:streetmarket/samples/profile_sample.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../models/UserData.dart';
 
@@ -25,7 +27,7 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  void _submitForm() async {
+  void _submitForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       // Form is valid, perform registration logic here
       String email = _emailController.text;
@@ -39,9 +41,12 @@ class _RegisterFormState extends State<RegisterForm> {
           password: password,
         );
 
-        Provider.of<UserModel>(context).name = name;
-        Provider.of<UserModel>(context).email = email;
-        Provider.of<UserModel>(context).password = password;
+        Provider.of<UserModel>(context, listen: false).name = name;
+        Provider.of<UserModel>(context, listen: false).email = email;
+        Provider.of<UserModel>(context, listen: false).password = password;
+
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => UserProfileScreen()));
 
         print('Credential: $credential');
       } on FirebaseAuthException catch (e) {
@@ -118,7 +123,9 @@ class _RegisterFormState extends State<RegisterForm> {
             },
           ),
           ElevatedButton(
-            onPressed: _submitForm,
+            onPressed: () {
+              _submitForm(context);
+            },
             child: Text('Register'),
           ),
         ],

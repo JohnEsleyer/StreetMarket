@@ -1,5 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:streetmarket/samples/profile_sample.dart';
+
+import '../models/UserData.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -27,6 +31,9 @@ class _LoginFormState extends State<LoginForm> {
       try {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => UserProfileScreen()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
