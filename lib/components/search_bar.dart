@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class SearchBar extends StatefulWidget {
   const SearchBar({ Key? key }) : super(key: key);
@@ -43,14 +44,20 @@ class _SearchBarState extends State<SearchBar> {
                 ),
                 Stack(
                   children: [
-                    Container(
-                      width: 325,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                        borderRadius: BorderRadius.circular(7),
+                    Neumorphic(
+                      style: const NeumorphicStyle(
+                        depth: -4,
+                        intensity: 0.8,
+                        color: Colors.white
                       ),
-                    )   
+                      child: Container(
+                        width: 325,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                      ),
+                    ),   
                   ],
                 ),
               ],
