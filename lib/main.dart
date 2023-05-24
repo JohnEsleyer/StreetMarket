@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:streetmarket/components/main_screen.dart';
+import 'package:streetmarket/models/UserData.dart';
 import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -13,7 +15,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MaterialColor myColor = MaterialColor(0xFFFFC107, {
+  MaterialColor myColor = const MaterialColor(0xFFFFC107, {
     50: Color(0xFFFFF8E1),
     100: Color(0xFFFFECB3),
     200: Color(0xFFFFE082),
@@ -32,8 +34,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: myColor,
       ),
+// <<<<<<< HEAD
       home: const Scaffold(
         body: SearchBar(),
+// =======
+      
+// >>>>>>> d764edd6991e676c0c0df3a31cb6ed9a1d367a9b
       ),
     );
   }
