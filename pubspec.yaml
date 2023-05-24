@@ -28,6 +28,8 @@ flutter:
   assets:
        - assets/streetmarket_icon.png
        - assets/streetmarket_text.png
+       - assets/background.jpg
+       - assets/icon2.png
   # fonts:
   #   - family: Schyler
   #     fonts:

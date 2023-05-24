@@ -11,6 +11,8 @@ class UserModel extends ChangeNotifier {
   late FirebaseAuth auth;
   late FirebaseFirestore db;
   late UserCredential _userCred;
+  late CollectionReference _userCollection;
+  late DocumentReference _userDoc;
 
   UserModel({required this.auth, required this.db});
   void setUserEmail(String email) {
@@ -19,6 +21,16 @@ class UserModel extends ChangeNotifier {
   }
 
   UserCredential get getUserCred => _userCred;
+  CollectionReference get getUserCollection => _userCollection;
+  DocumentReference get getUserDoc => _userDoc;
+
+  void setUserDoc(DocumentReference doc) {
+    this._userDoc = doc;
+  }
+
+  void setUserCollection(CollectionReference usrCollection) {
+    this._userCollection = usrCollection;
+  }
 
   void setUserCred(UserCredential usr) {
     this._userCred = usr;

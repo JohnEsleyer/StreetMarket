@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,9 +30,23 @@ class _LoginFormState extends State<LoginForm> {
       String password = _passwordController.text;
 
       try {
+        var model = Provider.of<UserModel>(context, listen: false);
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
-        Provider.of<UserModel>(context, listen: false).setUserCred(credential);
+        var userCollection = model.db.collection('Users');
+        var documentReference = userCollection.doc(credential.user?.uid);
+
+        documentReference.get().then((documentSnapshot) {
+          // Access the data in the document
+          final data = documentSnapshot.data();
+
+          // Print the data
+          print(data);
+        });
+
+        model.setUserDoc(documentReference);
+        model.setUserCred(credential);
+        model.setUserCollection(userCollection);
         Navigator.of(context).pushNamed('/profile');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
