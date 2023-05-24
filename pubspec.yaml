@@ -25,6 +25,7 @@ flutter:
 
   uses-material-design: true
   assets:
+       - assets/
        - assets/streetmarket_icon.png
        - assets/streetmarket_text.png
   # fonts:

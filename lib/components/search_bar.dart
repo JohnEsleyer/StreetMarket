@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
-
 class SearchBar extends StatefulWidget {
   const SearchBar({ Key? key }) : super(key: key);
 
@@ -24,9 +23,7 @@ class _SearchBarState extends State<SearchBar> {
             width: double.infinity,
             child: Row(
               children: [
-                Column(
-                  children: [
-                  ],
+                Image.asset('assets/streetmarket_r1_colored.png',
                 ),
               ],
               )
