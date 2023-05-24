@@ -51,6 +51,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 .doc(credential.user?.uid);
 
         print('UID: ${credential.user?.uid}');
+        Provider.of<UserModel>(context, listen: false).setUserCred(credential);
 
         // Write data to the document
         await userDocument.set({

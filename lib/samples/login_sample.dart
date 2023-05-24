@@ -31,9 +31,8 @@ class _LoginFormState extends State<LoginForm> {
       try {
         final credential = await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
-
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => UserProfileScreen()));
+        Provider.of<UserModel>(context, listen: false).setUserCred(credential);
+        Navigator.of(context).pushNamed('/profile');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');

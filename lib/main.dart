@@ -45,12 +45,18 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (context) {
             return Scaffold(
-              body: RegisterForm(),
+              body: LoginForm(), // First screen to open
             );
           },
           '/profile': (context) {
             return UserProfileScreen();
-          }
+          },
+          '/login': (context) {
+            return LoginForm();
+          },
+          '/register': (context) {
+            return RegisterForm();
+          },
         },
         title: 'Flutter Demo',
         theme: ThemeData(
