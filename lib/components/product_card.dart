@@ -11,7 +11,7 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
-
+  //TODO: add passable parameters for the data needed
   Color $whitesh = const Color(0xffF5F4F7);
   Color $mustard = const Color(0xffF4C900);
   @override
