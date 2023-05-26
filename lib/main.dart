@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.inter().fontFamily
       ),
       home: const Scaffold(
-        body: ProductCard(),
+        body: MainScreen(),
       ),
     );
   }

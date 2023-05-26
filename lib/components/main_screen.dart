@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streetmarket/components/search_bar.dart';
 import 'package:streetmarket/components/signin.dart';
 import 'package:streetmarket/components/signup.dart';
 
@@ -68,7 +69,11 @@ class _MainScreenState extends State<MainScreen> {
           ],
         ),
       ),
-      body: Container(),
+      body: Column(
+        children: const [
+          SearchBar()
+        ],
+      ),
     );
   }
 }

@@ -16,8 +16,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
+      body:Column(
           children: [
             // ignore: sized_box_for_whitespace
             Container(
@@ -165,7 +164,6 @@ class _SearchBarState extends State<SearchBar> {
                 )
               ),
           ],
-        ),
       ),
     );
   }
