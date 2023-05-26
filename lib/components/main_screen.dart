@@ -3,6 +3,8 @@ import 'package:streetmarket/components/signin.dart';
 import 'package:streetmarket/components/signup.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -15,8 +17,8 @@ class _MainScreenState extends State<MainScreen> {
         child: ListView(
           children: [
             GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
+                child: const Padding(
+                  padding: EdgeInsets.all(20),
                   child: Text(
                     'Sign in',
                     style: TextStyle(
@@ -30,8 +32,8 @@ class _MainScreenState extends State<MainScreen> {
                       builder: ((context) => SignInScreen())));
                 }),
             GestureDetector(
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
+                child: const Padding(
+                  padding: EdgeInsets.all(20),
                   child: Text(
                     'Sign up',
                     style: TextStyle(
@@ -62,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
               width: 150,
               height: 150,
             ),
-            SizedBox(width: 50),
+            const SizedBox(width: 50),
           ],
         ),
       ),

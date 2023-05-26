@@ -1,13 +1,18 @@
+// Main imports
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streetmarket/components/main_screen.dart';
-import 'package:streetmarket/models/UserData.dart';
-import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+// Mains
+import 'package:streetmarket/components/main_screen.dart';
+import 'package:streetmarket/models/UserData.dart';
+// Components
+import 'components/search_bar.dart';
+import 'components/product_card.dart';
+// Samples
 import 'samples/register_sample.dart';
 import 'samples/login_sample.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -30,12 +35,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
+      // title: 'Flutter Demo',
         primarySwatch: myColor,
+        fontFamily: GoogleFonts.inter().fontFamily
       ),
       home: const Scaffold(
-        body: SearchBar(),
+        body: ProductCard(),
       ),
     );
   }
