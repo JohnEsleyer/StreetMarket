@@ -8,13 +8,10 @@ class UserModel extends ChangeNotifier {
   String password = "";
   String name = "";
 
-  late FirebaseAuth auth;
-  late FirebaseFirestore db;
   late UserCredential _userCred;
   late CollectionReference _userCollection;
   late DocumentReference _userDoc;
 
-  UserModel({required this.auth, required this.db});
   void setUserEmail(String email) {
     this.email = email;
     notifyListeners();

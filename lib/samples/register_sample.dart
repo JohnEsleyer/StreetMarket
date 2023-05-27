@@ -36,19 +36,16 @@ class _RegisterFormState extends State<RegisterForm> {
       String name = _nameController.text;
 
       try {
-        final credential = await Provider.of<UserModel>(context, listen: false)
-            .auth
-            .createUserWithEmailAndPassword(
-              email: email,
-              password: password,
-            );
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
         // Document for the user
-        DocumentReference userDocument =
-            Provider.of<UserModel>(context, listen: false)
-                .db
-                .collection('Users')
-                .doc(credential.user?.uid);
+        DocumentReference userDocument = FirebaseFirestore.instance
+            .collection('Users')
+            .doc(credential.user?.uid);
 
         print('UID: ${credential.user?.uid}');
         Provider.of<UserModel>(context, listen: false).setUserCred(credential);

@@ -31,9 +31,10 @@ class _LoginFormState extends State<LoginForm> {
 
       try {
         var model = Provider.of<UserModel>(context, listen: false);
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-        var userCollection = model.db.collection('Users');
+        var auth = FirebaseAuth.instance;
+        final credential = await auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        var userCollection = FirebaseFirestore.instance.collection('Users');
         var documentReference = userCollection.doc(credential.user?.uid);
 
         documentReference.get().then((documentSnapshot) {

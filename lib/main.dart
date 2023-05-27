@@ -34,13 +34,10 @@ class MyApp extends StatelessWidget {
     900: Color.fromARGB(255, 0, 0, 0),
   });
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => UserModel(auth: _auth, db: _db),
+      create: (_) => UserModel(),
       child: MaterialApp(
         routes: {
           '/': (context) {
