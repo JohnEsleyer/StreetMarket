@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:streetmarket/components/main_screen.dart';
 import 'package:streetmarket/models/UserData.dart';
+import 'package:streetmarket/samples/post_product_sample.dart';
 import 'package:streetmarket/samples/profile_sample.dart';
 import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,6 +42,9 @@ class MyApp extends StatelessWidget {
           '/register': (context) {
             return RegisterForm();
           },
+          '/post-product': (context) {
+            return PostProduct();
+          }
         },
         title: 'Flutter Demo',
         theme: ThemeData(

@@ -188,7 +188,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           Icons.add,
           color: Colors.black,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/post-product');
+        },
       ),
     );
   }
