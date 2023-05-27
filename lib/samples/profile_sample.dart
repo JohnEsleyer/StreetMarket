@@ -1,6 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,8 +19,40 @@ class UserProfileScreen extends StatefulWidget {
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
   late String _name = "Name";
+  String? _id = '';
+
+  late User? user;
+
+  final storage = FirebaseStorage.instance;
+
+  String profileURL = "";
   late File imageFile = File.fromUri(Uri.http(
       'https://static.vecteezy.com/system/resources/previews/018/753/399/non_2x/naruto-chibi-icon-cute-free-vector.jpg'));
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize Firebase Authentication
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    // Get the current user
+    setState(() {
+      user = auth.currentUser;
+    });
+
+    // Get the reference to the image from Firebase Storage
+    Reference imageRef =
+        FirebaseStorage.instance.ref().child('users/${user?.uid}/profile.jpg');
+
+    // Get the download URL for the image
+    imageRef.getDownloadURL().then((url) {
+      setState(() {
+        // Create an Image widget with the download URL
+        profileURL = url;
+      });
+    });
+  }
 
   Future<DocumentSnapshot> getSnapshot(DocumentReference doc) async {
     return await doc.get();
@@ -33,8 +67,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
     try {
       final storageRef =
-          FirebaseStorage.instance.ref().child('users/$userId/profile.jpg');
+          FirebaseStorage.instance.ref().child('users/$_id/profile.jpg');
       await storageRef.putFile(imageFile!);
+
+      storageRef.getDownloadURL().then((url) {
+        setState(() {
+          // Create an Image widget with the download URL
+          profileURL = url;
+        });
+      });
+
       print('Image uploaded successfully!');
     } catch (e) {
       print('Error uploading image: $e');
@@ -65,6 +107,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       setState(() {
         _name = (documentSnapshot.data()! as Map<String, dynamic>)['name']
             as String;
+
+        _id = model.getId;
       });
     });
 
@@ -92,7 +136,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     children: [
                       CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage('assets/icon2.png'),
+                        backgroundImage: NetworkImage(profileURL),
                       ),
                       GestureDetector(
                         onTap: () {

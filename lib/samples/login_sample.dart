@@ -48,6 +48,7 @@ class _LoginFormState extends State<LoginForm> {
         model.setUserDoc(documentReference);
         model.setUserCred(credential);
         model.setUserCollection(userCollection);
+        model.setId(credential.user?.uid);
         Navigator.of(context).popAndPushNamed('/profile');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {

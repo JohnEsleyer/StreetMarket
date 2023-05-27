@@ -29,6 +29,8 @@ class _RegisterFormState extends State<RegisterForm> {
   }
 
   void _submitForm(BuildContext context) async {
+    var model = Provider.of<UserModel>(context, listen: false);
+
     if (_formKey.currentState!.validate()) {
       // Form is valid, perform registration logic here
       String email = _emailController.text;
@@ -42,13 +44,15 @@ class _RegisterFormState extends State<RegisterForm> {
           password: password,
         );
 
+        model.setId(credential.user?.uid);
+
         // Document for the user
         DocumentReference userDocument = FirebaseFirestore.instance
             .collection('Users')
             .doc(credential.user?.uid);
 
         print('UID: ${credential.user?.uid}');
-        Provider.of<UserModel>(context, listen: false).setUserCred(credential);
+        model.setUserCred(credential);
 
         // Write data to the document
         await userDocument.set({

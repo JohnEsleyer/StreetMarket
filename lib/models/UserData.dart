@@ -7,6 +7,7 @@ class UserModel extends ChangeNotifier {
   String email = "";
   String password = "";
   String name = "";
+  String? _id = "";
 
   late UserCredential _userCred;
   late CollectionReference _userCollection;
@@ -20,6 +21,7 @@ class UserModel extends ChangeNotifier {
   UserCredential get getUserCred => _userCred;
   CollectionReference get getUserCollection => _userCollection;
   DocumentReference get getUserDoc => _userDoc;
+  String? get getId => _id;
 
   void setUserDoc(DocumentReference doc) {
     this._userDoc = doc;
@@ -40,6 +42,11 @@ class UserModel extends ChangeNotifier {
 
   void setUserName(String name) {
     this.name = name;
+    notifyListeners();
+  }
+
+  void setId(String? id) {
+    this._id = id;
     notifyListeners();
   }
 }
