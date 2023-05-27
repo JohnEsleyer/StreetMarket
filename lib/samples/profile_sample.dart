@@ -113,8 +113,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     });
 
     return Scaffold(
+      drawer: Drawer(),
       appBar: StreetMarketAppBar,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             alignment: Alignment.bottomCenter,
@@ -169,7 +171,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
             ],
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "My Product Posts",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
+        onPressed: () {},
       ),
     );
   }

@@ -15,7 +15,7 @@ AppBar StreetMarketAppBar = AppBar(
         width: 150,
         height: 150,
       ),
-      // SizedBox(width: 50),
+      SizedBox(width: 50),
     ],
   ),
 );

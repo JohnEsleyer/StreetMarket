@@ -21,19 +21,6 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  MaterialColor myColor = MaterialColor(0xFFFFC107, {
-    50: Color(0xFFFFF8E1),
-    100: Color(0xFFFFECB3),
-    200: Color(0xFFFFE082),
-    300: Color(0xFFFFD54F),
-    400: Color(0xFFFFCA28),
-    500: Color(0xFFFFC107),
-    600: Color(0xFFFFB300),
-    700: Color(0xFFFFA000),
-    800: Color(0xFFFF8F00),
-    900: Color.fromARGB(255, 0, 0, 0),
-  });
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -57,7 +44,14 @@ class MyApp extends StatelessWidget {
         },
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: myColor,
+          primaryColor: Colors.black,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Color.fromARGB(255, 255, 170, 0),
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
         ),
       ),
     );
