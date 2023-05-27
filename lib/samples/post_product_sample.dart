@@ -64,7 +64,7 @@ class _PostProductState extends State<PostProduct> {
     try {
       final storageRef =
           FirebaseStorage.instance.ref().child('posts/$_postId.jpg');
-      await storageRef.putFile(imageFile!);
+      await storageRef.putFile(imageFile);
 
       storageRef.getDownloadURL().then((url) {
         setState(() {
@@ -91,6 +91,10 @@ class _PostProductState extends State<PostProduct> {
         'imageUrl': await ref.getDownloadURL(),
         'id': _postId,
         'user': _user?.uid,
+        'day': DateTime.now().day,
+        'month': DateTime.now().month,
+        'year': DateTime.now().year,
+        'minutes': DateTime.now().minute,
       };
       await FirebaseFirestore.instance
           .collection('posts')
@@ -167,7 +171,10 @@ class _PostProductState extends State<PostProduct> {
               ),
               ElevatedButton(
                 child: Text('Submit'),
-                onPressed: savePost,
+                onPressed: () async {
+                  await savePost();
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),

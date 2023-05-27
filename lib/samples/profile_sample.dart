@@ -68,7 +68,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     try {
       final storageRef =
           FirebaseStorage.instance.ref().child('users/$_id/profile.jpg');
-      await storageRef.putFile(imageFile!);
+      await storageRef.putFile(imageFile);
 
       storageRef.getDownloadURL().then((url) {
         setState(() {
@@ -179,6 +179,115 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
+            ),
+          ),
+          Expanded(
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .where('user', isEqualTo: user?.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
+
+                return ListView.builder(
+                  itemCount: snapshot.data?.docs.length,
+                  itemBuilder: (context, index) {
+                    final document = snapshot.data?.docs[index];
+
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                blurRadius: 10,
+                                offset: Offset(2, 2),
+                              )
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 15,
+                                          backgroundImage:
+                                              NetworkImage(profileURL),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                document?['title'],
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Posted by $_name",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(
+                                      "\$${document?['price']}",
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  height: 50,
+                                  child: Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(document?['details']),
+                                    ),
+                                  ),
+                                ),
+                                Image.network(
+                                  document?['imageUrl'],
+                                  height: 400,
+                                  width: double.infinity,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                      ],
+                    );
+                    // return Container(
+                    //     child: Center(
+                    //   child: Text(document?['title']),
+                    // ));
+                  },
+                );
+              },
             ),
           ),
         ],
