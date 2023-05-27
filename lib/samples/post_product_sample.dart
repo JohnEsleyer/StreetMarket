@@ -81,8 +81,6 @@ class _PostProductState extends State<PostProduct> {
 
   Future<void> savePost() async {
     if (_formKey.currentState!.validate()) {
-      await uploadImage();
-
       Reference ref =
           FirebaseStorage.instance.ref().child('posts/$_postId.jpg');
       var post = {
@@ -104,6 +102,7 @@ class _PostProductState extends State<PostProduct> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Publish Product Post'),
       ),
@@ -113,6 +112,32 @@ class _PostProductState extends State<PostProduct> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              _postImageURL == ''
+                  ? GestureDetector(
+                      onTap: uploadImage,
+                      child: Container(
+                        height: 150,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 224, 224, 224),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                        ),
+                        child: Icon(Icons.image),
+                      ),
+                    )
+                  : Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      width: double.infinity,
+                      height: 150,
+                      child: Image.network(
+                        _postImageURL,
+                      ),
+                    ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Title'),
                 onChanged: (value) {
