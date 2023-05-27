@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:streetmarket/custom_widgets/small_widgets.dart';
+
 import '../models/UserData.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -29,9 +31,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       });
     });
     return Scaffold(
-      appBar: AppBar(
-        title: Text('User Profile'),
-      ),
+      appBar: StreetMarketAppBar,
       body: Column(
         children: [
           Stack(
