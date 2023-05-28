@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 import '../models/UserData.dart';
 
@@ -17,6 +19,24 @@ class ViewProduct extends StatefulWidget {
 class _ViewProductState extends State<ViewProduct> {
   User? user;
   String profileURL = "";
+
+  Future<void> openMap(double latitude, double longitude) async {
+    // await launchUrl(Uri.parse(
+    //     "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"));
+    // Check if Google Maps is installed.
+    // if (await canLaunchUrl(Uri.parse(
+    //     "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"))) {
+    //   // Launch Google Maps with the specified coordinates.
+    //   await launchUrl(Uri.parse(
+    //       "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude"));
+    // } else {
+    //   // Throw an error if Google Maps is not installed.
+    //   throw 'Could not open the map.';
+    // }
+    // print("Latitude: $latitude, Longitude: $longitude");
+    MapsLauncher.launchCoordinates(latitude, longitude);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -174,28 +194,73 @@ class _ViewProductState extends State<ViewProduct> {
                         SizedBox(height: 10),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Column(
-                          children: [
-                            Text(
-                              'Show Location',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                    document?['latitude'] == 0 && document?['longitude'] == 0
+                        ? Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 8,
+                                  left: 8,
+                                  right: 8,
+                                ),
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              Colors.grey)),
+                                  onPressed: null,
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Show Location',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        'This will open Google Maps',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '*This button is disabled, no coordinates was given*',
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  color: Color.fromARGB(255, 103, 102, 102),
+                                ),
+                              ),
+                            ],
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                openMap(document?['latitude'],
+                                    document?['longitude']);
+                              },
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Show Location',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    'This will open Google Maps',
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            Text(
-                              'This will open Google Maps',
-                              style: TextStyle(
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
                   ],
                 );
               },

@@ -24,6 +24,8 @@ dependencies:
   firestore_search_input:
     git:
       url: https://github.com/JohnEsleyer/firestore_search_input
+  url_launcher: ^6.1.11
+  maps_launcher: ^2.2.0
 
 
 dev_dependencies:

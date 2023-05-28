@@ -324,9 +324,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ],
                           );
                         } else {
-                          return Center(
-                            child: Text("No Posts"),
-                          );
+                          return SizedBox(height: 1);
                         }
                         // return Container(
                         //     child: Center(
