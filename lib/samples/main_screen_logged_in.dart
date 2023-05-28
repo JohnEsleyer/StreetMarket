@@ -40,6 +40,16 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
     });
   }
 
+  Future<String> getUserProfile(
+      QueryDocumentSnapshot<Map<String, dynamic>>? document) {
+    // Get the reference to the image from Firebase Storage
+    Reference imageRef2 = FirebaseStorage.instance
+        .ref()
+        .child('users/${document?['user']}/profile.jpg');
+    var usrImageURL = '';
+    return imageRef2.getDownloadURL();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,10 +162,21 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
                                       children: [
                                         Row(
                                           children: [
-                                            CircleAvatar(
-                                              radius: 15,
-                                              backgroundImage:
-                                                  NetworkImage(profileURL),
+                                            FutureBuilder(
+                                              future: getUserProfile(document),
+                                              builder: (context, snapshot) {
+                                                if (snapshot.hasData) {
+                                                  return CircleAvatar(
+                                                    radius: 15,
+                                                    backgroundImage:
+                                                        NetworkImage(snapshot
+                                                            .data
+                                                            .toString()),
+                                                  );
+                                                }
+
+                                                return CircularProgressIndicator();
+                                              },
                                             ),
                                             Padding(
                                               padding:
