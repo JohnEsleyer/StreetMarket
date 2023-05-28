@@ -6,6 +6,7 @@ import 'package:streetmarket/samples/main_screen_sample.dart';
 import 'package:streetmarket/models/UserData.dart';
 import 'package:streetmarket/samples/post_product_sample.dart';
 import 'package:streetmarket/samples/profile_sample.dart';
+import 'package:streetmarket/samples/search_mode.dart';
 import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
           '/post-product': (context) => PostProduct(),
           '/main_screen': (context) => MainScreen(),
           '/main_screen_login': (context) => MainScreenLoggedIn(),
+          '/search_mode': (context) => SearchModeScreen(),
         },
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -58,6 +60,9 @@ class MyApp extends StatelessWidget {
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: Colors.black),
             ),
+          ),
+          progressIndicatorTheme: ProgressIndicatorThemeData(
+            color: Colors.amber,
           ),
         ),
       ),

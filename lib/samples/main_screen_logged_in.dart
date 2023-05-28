@@ -99,12 +99,24 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
                 ),
               ],
             ),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/search_mode');
+              },
+              child: Hero(
+                tag: 'search',
+                child: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+              ),
+            ),
             Container(
               height: 35,
               width: 35,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).popAndPushNamed('/profile');
+                  Navigator.of(context).pushNamed('/profile');
                 },
                 child: CircleAvatar(
                   radius: 40,
