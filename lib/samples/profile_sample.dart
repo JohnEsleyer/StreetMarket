@@ -111,39 +111,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).popAndPushNamed('/main_screen_login');
-              },
-              child: Icon(Icons.home, color: Colors.black),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/streetmarket_icon.png',
-                  width: 30,
-                  height: 30,
-                ),
-                Image.asset(
-                  'assets/streetmarket_text.png',
-                  width: 150,
-                  height: 150,
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 10,
-            ),
-          ],
-        ),
-      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -151,11 +118,26 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             alignment: Alignment.bottomCenter,
             children: [
               // Background image
-              Image.asset(
-                'assets/background.jpg',
-                fit: BoxFit.cover,
-                height: MediaQuery.of(context).size.height * 0.25,
-                width: double.infinity,
+              Stack(
+                alignment: Alignment.topLeft,
+                children: [
+                  Image.asset(
+                    'assets/background.jpg',
+                    fit: BoxFit.cover,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    width: double.infinity,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .popAndPushNamed('/main_screen_login');
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Icon(Icons.arrow_back, color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
               // User profile
               Column(
@@ -225,7 +207,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   behavior: ScrollBehavior(),
                   child: GlowingOverscrollIndicator(
                     axisDirection: AxisDirection.down,
-                    color: Colors.yellow,
+                    color: Colors.white,
                     child: ListView.builder(
                       itemCount: snapshot.data?.docs.length,
                       itemBuilder: (context, index) {
