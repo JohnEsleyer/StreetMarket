@@ -22,6 +22,8 @@ class _PostProductState extends State<PostProduct> {
   String _price = '';
   String _details = '';
   String _location = '';
+  double _latitude = 0.0;
+  double _longitude = 0.0;
   late File _image;
   late User? _user = FirebaseAuth.instance.currentUser;
   String _postImageURL = '';
@@ -100,6 +102,8 @@ class _PostProductState extends State<PostProduct> {
         'price': _price,
         'details': _details,
         'location': _location,
+        'latitude': _latitude,
+        'longitude': _longitude,
         'imageUrl': await ref.getDownloadURL(),
         'id': _postId,
         'user': _user?.uid,
@@ -129,6 +133,7 @@ class _PostProductState extends State<PostProduct> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _postImageURL == ''
                   ? GestureDetector(
@@ -179,6 +184,27 @@ class _PostProductState extends State<PostProduct> {
                 decoration: InputDecoration(labelText: 'Location'),
                 onChanged: (value) {
                   _location = value;
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Google Map Coordinates (Optional)',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'latitude'),
+                onChanged: (value) {
+                  _latitude = double.parse(value);
+                },
+              ),
+              TextFormField(
+                decoration: InputDecoration(labelText: 'longitude'),
+                onChanged: (value) {
+                  _longitude = double.parse(value);
                 },
               ),
               SizedBox(
