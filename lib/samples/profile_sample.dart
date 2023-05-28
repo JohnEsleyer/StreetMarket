@@ -108,6 +108,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
         _id = model.getId;
       });
+      model.setUserName(_name);
     });
 
     return Scaffold(
@@ -133,7 +134,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           .popAndPushNamed('/main_screen_login');
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.only(top: 50, left: 20),
                       child: Icon(Icons.arrow_back, color: Colors.white),
                     ),
                   ),
@@ -192,11 +193,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
             ),
           ),
-          Flexible(
+          Expanded(
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('posts')
-                  .where('user', isEqualTo: user?.uid)
+                  // .where('user', isEqualTo: user?.uid)
+                  .orderBy('document_name', descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
@@ -212,113 +214,120 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       itemCount: snapshot.data?.docs.length,
                       itemBuilder: (context, index) {
                         final document = snapshot.data?.docs[index];
-
-                        return Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.25),
-                                    blurRadius: 10,
-                                    offset: Offset(2, 2),
-                                  )
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                              radius: 15,
-                                              backgroundImage:
-                                                  NetworkImage(profileURL),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    document?['title'],
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "Posted by $_name",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    "${document?['location']}",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize: 10,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              "PHP ${document?['price']}",
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                            Text(
-                                              "Date posted: ${document?['month']}/${document?['day']}/${document?['year']}",
-                                              style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 10,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: 50,
-                                      child: Expanded(
-                                        child: Text(document?['details']),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: double.infinity,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          document?['imageUrl'],
-                                        ),
-                                      ),
-                                    ),
+                        if (document?['user'] == user?.uid) {
+                          return Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      blurRadius: 10,
+                                      offset: Offset(2, 2),
+                                    )
                                   ],
                                 ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 15,
+                                                backgroundImage:
+                                                    NetworkImage(profileURL),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      document?['title'],
+                                                      style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "Posted by $_name",
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "${document?['location']}",
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 10,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              Text(
+                                                "PHP ${document?['price']}",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                              Text(
+                                                "Date posted: ${document?['month']}/${document?['day']}/${document?['year']}",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 10,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        child: Expanded(
+                                          child: Text(document?['details']),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: double.infinity,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            document?['imageUrl'],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 10),
-                          ],
-                        );
+                              SizedBox(height: 10),
+                            ],
+                          );
+                        } else {
+                          return Center(
+                            child: Text("No Posts"),
+                          );
+                        }
                         // return Container(
                         //     child: Center(
                         //   child: Text(document?['title']),

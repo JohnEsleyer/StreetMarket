@@ -39,23 +39,11 @@ class _PostProductState extends State<PostProduct> {
     FirebaseAuth auth = FirebaseAuth.instance;
     var uuid = Uuid();
 
-    CollectionReference users = FirebaseFirestore.instance.collection("users");
-    var documentReference = users.doc(_user?.uid);
-
     // Get the current user
     setState(() {
       _user = auth.currentUser;
       _postId = uuid.v4();
     });
-
-    documentReference.get().then((documentSnapshot) {
-      // var data = documentSnapshot.data();
-      setState(() {
-        _username = (documentSnapshot.data()! as Map<String, dynamic>)['name']
-            as String;
-      });
-    });
-    print("USERNAME:$_username");
   }
 
   Future<void> uploadImage() async {
@@ -92,7 +80,8 @@ class _PostProductState extends State<PostProduct> {
     }
   }
 
-  Future<void> savePost() async {
+  Future<void> savePost(BuildContext context) async {
+    var model = Provider.of<UserModel>(context, listen: false);
     if (_formKey.currentState!.validate()) {
       Reference ref =
           FirebaseStorage.instance.ref().child('posts/$_postId.jpg');
@@ -111,7 +100,7 @@ class _PostProductState extends State<PostProduct> {
         'month': DateTime.now().month,
         'year': DateTime.now().year,
         'minutes': DateTime.now().minute,
-        'username': _username,
+        'username': model.name,
         'document_name': int.parse(docName),
       };
       await FirebaseFirestore.instance
@@ -213,7 +202,7 @@ class _PostProductState extends State<PostProduct> {
               ElevatedButton(
                 child: Text('Submit'),
                 onPressed: () async {
-                  await savePost();
+                  await savePost(context);
                   Navigator.pop(context);
                 },
               ),
