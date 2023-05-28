@@ -60,9 +60,8 @@ class _RegisterFormState extends State<RegisterForm> {
           'email': email,
         });
 
-        Navigator.of(context).pushNamed('/profile');
-
-        print('Credential: $credential');
+        FirebaseAuth.instance.signOut();
+        Navigator.of(context).pushNamed('/login');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -87,60 +86,81 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your email';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter a password';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _confirmPasswordController,
-            decoration: InputDecoration(labelText: 'Confirm Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please confirm your password';
-              }
-              if (value != _passwordController.text) {
-                return 'Passwords do not match';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _nameController,
-            decoration: InputDecoration(labelText: 'Name'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your name';
-              }
-              return null;
-            },
-          ),
-          ElevatedButton(
-            onPressed: () {
-              _submitForm(context);
-            },
-            child: Text('Register'),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter a password';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  decoration: InputDecoration(labelText: 'Confirm Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _submitForm(context);
+                  },
+                  child: Text('Register'),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, '/login');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Already have an account? Click here to log in",
+                      style: TextStyle(
+                        color: Colors.amber,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

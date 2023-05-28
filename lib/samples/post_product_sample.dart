@@ -23,7 +23,7 @@ class _PostProductState extends State<PostProduct> {
   String _details = '';
   String _location = '';
   late File _image;
-  late User? _user;
+  late User? _user = FirebaseAuth.instance.currentUser;
   String _postImageURL = '';
   String _postId = '';
   String _username = '';
@@ -31,7 +31,7 @@ class _PostProductState extends State<PostProduct> {
   late File imageFile = File.fromUri(Uri.http(
       'https://static.vecteezy.com/system/resources/previews/018/753/399/non_2x/naruto-chibi-icon-cute-free-vector.jpg'));
 
-  void initState() async {
+  void initState() {
     super.initState();
     // Initialize Firebase Authentication
     FirebaseAuth auth = FirebaseAuth.instance;

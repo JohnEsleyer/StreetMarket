@@ -57,8 +57,11 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
                   ),
                 ),
               ),
-              onTap: () {
-                Navigator.of(context).pushNamed('/login');
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                print("Signed out!");
+
+                Navigator.of(context).popAndPushNamed('/login');
               },
             ),
           ],
@@ -106,10 +109,8 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
         children: [
           Expanded(
             child: StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('posts')
-                  .where('user', isEqualTo: user?.uid)
-                  .snapshots(),
+              stream:
+                  FirebaseFirestore.instance.collection('posts').snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());

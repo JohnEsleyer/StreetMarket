@@ -72,34 +72,55 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your email';
-              }
-              return null;
-            },
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: Text('Login'),
+                ),
+              ],
+            ),
           ),
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your password';
-              }
-              return null;
+          GestureDetector(
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/register');
             },
-          ),
-          ElevatedButton(
-            onPressed: _submitForm,
-            child: Text('Login'),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Create new account",
+                style: TextStyle(
+                  color: Colors.amber,
+                ),
+              ),
+            ),
           ),
         ],
       ),

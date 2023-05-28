@@ -30,11 +30,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) {
-            return Scaffold(
-              body: LoginForm(), // First screen to open
-            );
-          },
+          '/': (context) => LoginForm(), // First screen to open
           '/profile': (context) => UserProfileScreen(),
           '/login': (context) => LoginForm(),
           '/register': (context) => RegisterForm(),
