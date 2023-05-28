@@ -156,6 +156,7 @@ class _PostProductState extends State<PostProduct> {
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Details'),
+                maxLines: 5,
                 onChanged: (value) {
                   _details = value;
                 },
