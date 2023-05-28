@@ -148,16 +148,21 @@ class _MainScreenState extends State<MainScreen> {
                     //TODO: add params for the productcard maybe?
 
                     //! Part as TODO: for a loop maybe?
-                    const ProductCard(),
+                    for (int i = 0; i < 20; i++)...[ //! test only for loop
+                    const ProductCard(
+                      nameOnly: true,
+                      posterName: 'Jan Mar',
+                      posterProfileURL: 'https://images.generated.photos/NVJOK3XVAitYE-EIT9ffzsZjoyryw9KPx9z87M9kkQc/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NjE5MjI0LmpwZw.jpg',
+                      productName: 'Test1',
+                      productDesc: '"Nostrud sint officia Lorem laboris exercitation minim dolor quis nostrud consectetur ex dolor commodo. Aliqua adipisicing Lorem nostrud esse est ea ipsum duis commodo. Eu culpa officia ea reprehenderit ex sunt amet in laborum veniam dolore pariatur fugiat. Aliqua Lorem eu magna deserunt proident incididunt nulla nisi ex adipisicing."',
+                      productImgURL1: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-pink?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1657641867367',
+                      productImgURL2: 'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-pink?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1657641867367',
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
+                    ],
                     //! Part as TODO: for a loop maybe? --END
-                    // Container(
-                    //   color: Colors.red,
-                    //   width: MediaQuery.of(context).size.width,
-                    //   height: MediaQuery.of(context).size.height,
-                    // )
                   ],
                 ),
               ),
