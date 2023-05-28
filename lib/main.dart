@@ -6,6 +6,8 @@ import 'firebase_options.dart';
 // Mains
 import 'package:streetmarket/components/main_screen.dart';
 import 'package:streetmarket/models/UserData.dart';
+import 'package:streetmarket/components/signup.dart';
+import 'package:streetmarket/components/signin.dart';
 // Components
 import 'components/search_bar.dart';
 import 'components/product_card.dart';
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.inter().fontFamily
       ),
       home: const Scaffold(
-        body: MainScreen(),
+        body: SignUpScreen(),
       ),
     );
   }

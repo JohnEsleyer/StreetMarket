@@ -12,6 +12,7 @@ class ProductCard extends StatefulWidget {
   final String posterProfileURL;
   final String productImgURL1;
   final String productImgURL2;
+  
   const ProductCard({
     Key? key, 
     required this.nameOnly,
