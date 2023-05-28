@@ -282,6 +282,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                                       color: Colors.grey,
                                                     ),
                                                   ),
+                                                  Text(
+                                                    "${document?['location']}",
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -304,8 +311,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     ),
                                     Container(
                                       width: double.infinity,
-                                      child: Image.network(
-                                        document?['imageUrl'],
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          document?['imageUrl'],
+                                        ),
                                       ),
                                     ),
                                   ],

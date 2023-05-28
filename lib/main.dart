@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => UserModel(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         routes: {
           '/': (context) {
             return Scaffold(
