@@ -94,6 +94,7 @@ class _PostProductState extends State<PostProduct> {
     if (_formKey.currentState!.validate()) {
       Reference ref =
           FirebaseStorage.instance.ref().child('posts/$_postId.jpg');
+      String docName = DateTime.now().millisecondsSinceEpoch.toString();
       var post = {
         'title': _title,
         'price': _price,
@@ -107,10 +108,11 @@ class _PostProductState extends State<PostProduct> {
         'year': DateTime.now().year,
         'minutes': DateTime.now().minute,
         'username': _username,
+        'document_name': int.parse(docName),
       };
       await FirebaseFirestore.instance
           .collection('posts')
-          .doc(DateTime.now().millisecondsSinceEpoch.toString())
+          .doc(docName)
           .set(post);
     }
   }

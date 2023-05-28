@@ -119,8 +119,10 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
         children: [
           Expanded(
             child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('posts').snapshots(),
+              stream: FirebaseFirestore.instance
+                  .collection('posts')
+                  .orderBy('document_name', descending: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
