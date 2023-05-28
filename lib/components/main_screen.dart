@@ -150,7 +150,7 @@ class _MainScreenState extends State<MainScreen> {
                     //! Part as TODO: for a loop maybe?
                     for (int i = 0; i < 20; i++)...[ //! test only for loop
                     const ProductCard(
-                      nameOnly: true,
+                      nameOnly: false,
                       posterName: 'Jan Mar',
                       posterProfileURL: 'https://images.generated.photos/NVJOK3XVAitYE-EIT9ffzsZjoyryw9KPx9z87M9kkQc/rs:fit:512:512/wm:0.95:sowe:18:18:0.33/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NjE5MjI0LmpwZw.jpg',
                       productName: 'Test1',
