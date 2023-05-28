@@ -192,7 +192,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               ),
             ),
           ),
-          Expanded(
+          Flexible(
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('posts')

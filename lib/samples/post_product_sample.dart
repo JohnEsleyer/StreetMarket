@@ -48,12 +48,12 @@ class _PostProductState extends State<PostProduct> {
 
     documentReference.get().then((documentSnapshot) {
       // var data = documentSnapshot.data();
-
       setState(() {
         _username = (documentSnapshot.data()! as Map<String, dynamic>)['name']
             as String;
       });
     });
+    print("USERNAME:$_username");
   }
 
   Future<void> uploadImage() async {
