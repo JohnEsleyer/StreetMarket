@@ -7,6 +7,7 @@ import 'package:streetmarket/models/UserData.dart';
 import 'package:streetmarket/samples/post_product_sample.dart';
 import 'package:streetmarket/samples/profile_sample.dart';
 import 'package:streetmarket/samples/search_mode.dart';
+import 'package:streetmarket/samples/view_product.dart';
 import 'components/search_bar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
