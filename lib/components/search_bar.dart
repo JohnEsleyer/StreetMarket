@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
@@ -10,40 +10,39 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
-
   Color $whitesh = const Color(0xffF5F4F7);
   Color $mustard = const Color(0xffF4C900);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:Column(
-          children: [
-            // ignore: sized_box_for_whitespace
-            Container(
-              // remove this if done with outline
-              // decoration: BoxDecoration(
-                // border: Border.all(
-                //   color: Colors.blue,
-                //   width: 1
-                // )
-              // ),
-              height: 45,
-              width: double.infinity,
-              child: Row(
+    var $screenWidth = MediaQuery.of(context).size.width;
+    var $screenHeight = MediaQuery.of(context).size.height;
+    return Row(      
+      children: [
+        Container(
+          height: 50,
+          width: $screenWidth,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(5)
+          ),
+          child: Row(
+            children: [
+              Column(
                 children: [
-                  Column(
-                    children: [
-                      Image.asset('assets/streetmarket_logo_r1_colored.png',
-                      width: 20.05,
-                      height: 29.37,
-                      ),
-                      Image.asset('assets/streetmarket_r1_colored.png',
-                      width: 75,
-                      height: 8.25,
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 5,
                   ),
-                  Stack(
+                  Image.asset('assets/streetmarket_logo_r1_colored.png',
+                  width: 20.05,
+                  height: 29.37,
+                  ),
+                  Image.asset('assets/streetmarket_r1_colored.png',
+                  width: 75,
+                  height: 8.25,
+                  ),
+                ],
+              ),
+              Stack(
                     children: [
                       Neumorphic(
                         style: NeumorphicStyle(
@@ -53,7 +52,7 @@ class _SearchBarState extends State<SearchBar> {
                           color: $whitesh
                         ),
                         child: Container(
-                          width: 325,
+                          width: $screenWidth - (75),
                           height: 42,
                           padding: const EdgeInsets.fromLTRB(13, 0, 10, 1.5),
                           decoration: BoxDecoration(
@@ -160,11 +159,10 @@ class _SearchBarState extends State<SearchBar> {
                       ),
                     ],
                   ),
-                ],
-                )
-              ),
-          ],
-      ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
