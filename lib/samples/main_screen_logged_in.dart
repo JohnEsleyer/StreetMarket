@@ -43,7 +43,29 @@ class _MainScreenLoggedInState extends State<MainScreenLoggedIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  'Log Out',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).pushNamed('/login');
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 222, 182, 0),
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
