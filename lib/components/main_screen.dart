@@ -94,6 +94,7 @@ class _MainScreenState extends State<MainScreen> {
                           const SizedBox(
                             height: 60,
                           ),
+                          //! Relates to the search related text only
                           Container(
                             width: $screenWidth,
                             height: 60,
@@ -123,7 +124,10 @@ class _MainScreenState extends State<MainScreen> {
                           const SizedBox(
                             height: 10,
                           ),
+                          //! Relates to the search related text only --END
                           // ignore: sized_box_for_whitespace
+
+                          //! For the location
                           Container(
                             width: $screenWidth - 50,
                             child: Text(
@@ -136,17 +140,19 @@ class _MainScreenState extends State<MainScreen> {
                               textAlign: TextAlign.end,
                             ),
                           ),
+                          //! For the location --END
                         ],
                       ),
                     ),
                     //TODO: for a loop maybe?
                     //TODO: add params for the productcard maybe?
+
                     //! Part as TODO: for a loop maybe?
                     const ProductCard(),
                     const SizedBox(
                       height: 20,
                     ),
-                    //! Part as TODO: for a loop maybe?
+                    //! Part as TODO: for a loop maybe? --END
                     // Container(
                     //   color: Colors.red,
                     //   width: MediaQuery.of(context).size.width,
