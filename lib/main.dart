@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streetmarket/components/main_screen.dart';
+import 'package:streetmarket/samples/main_screen_logged_in.dart';
+import 'package:streetmarket/samples/main_screen_sample.dart';
 import 'package:streetmarket/models/UserData.dart';
 import 'package:streetmarket/samples/post_product_sample.dart';
 import 'package:streetmarket/samples/profile_sample.dart';
@@ -34,18 +35,12 @@ class MyApp extends StatelessWidget {
               body: LoginForm(), // First screen to open
             );
           },
-          '/profile': (context) {
-            return UserProfileScreen();
-          },
-          '/login': (context) {
-            return LoginForm();
-          },
-          '/register': (context) {
-            return RegisterForm();
-          },
-          '/post-product': (context) {
-            return PostProduct();
-          }
+          '/profile': (context) => UserProfileScreen(),
+          '/login': (context) => LoginForm(),
+          '/register': (context) => RegisterForm(),
+          '/post-product': (context) => PostProduct(),
+          '/main_screen': (context) => MainScreen(),
+          '/main_screen_login': (context) => MainScreenLoggedIn(),
         },
         title: 'Flutter Demo',
         theme: ThemeData(

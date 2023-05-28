@@ -118,7 +118,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed('/main_screen');
+                Navigator.of(context).pushNamed('/main_screen_login');
               },
               child: Icon(Icons.home, color: Colors.black),
             ),
