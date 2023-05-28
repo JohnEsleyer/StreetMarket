@@ -295,12 +295,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                             ),
                                           ],
                                         ),
-                                        Text(
-                                          "PHP ${document?['price']}",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                          ),
+                                        Column(
+                                          children: [
+                                            Text(
+                                              "PHP ${document?['price']}",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                            Text(
+                                              "Date posted: ${document?['month']}/${document?['day']}/${document?['year']}",
+                                              style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),

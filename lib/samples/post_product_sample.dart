@@ -26,20 +26,33 @@ class _PostProductState extends State<PostProduct> {
   late User? _user;
   String _postImageURL = '';
   String _postId = '';
+  String _username = '';
 
   late File imageFile = File.fromUri(Uri.http(
       'https://static.vecteezy.com/system/resources/previews/018/753/399/non_2x/naruto-chibi-icon-cute-free-vector.jpg'));
 
-  void initState() {
+  void initState() async {
     super.initState();
     // Initialize Firebase Authentication
     FirebaseAuth auth = FirebaseAuth.instance;
     var uuid = Uuid();
 
+    CollectionReference users = FirebaseFirestore.instance.collection("users");
+    var documentReference = users.doc(_user?.uid);
+
     // Get the current user
     setState(() {
       _user = auth.currentUser;
       _postId = uuid.v4();
+    });
+
+    documentReference.get().then((documentSnapshot) {
+      // var data = documentSnapshot.data();
+
+      setState(() {
+        _username = (documentSnapshot.data()! as Map<String, dynamic>)['name']
+            as String;
+      });
     });
   }
 
@@ -93,6 +106,7 @@ class _PostProductState extends State<PostProduct> {
         'month': DateTime.now().month,
         'year': DateTime.now().year,
         'minutes': DateTime.now().minute,
+        'username': _username,
       };
       await FirebaseFirestore.instance
           .collection('posts')
