@@ -8,8 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import 'package:streetmarket/custom_widgets/small_widgets.dart';
-
 import '../models/UserData.dart';
 
 class UserProfileScreen extends StatefulWidget {
@@ -113,8 +111,38 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     });
 
     return Scaffold(
-      drawer: Drawer(),
-      appBar: StreetMarketAppBar,
+      appBar: AppBar(
+        centerTitle: true,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed('/main_screen');
+              },
+              child: Icon(Icons.home, color: Colors.black),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/streetmarket_icon.png',
+                  width: 30,
+                  height: 30,
+                ),
+                Image.asset(
+                  'assets/streetmarket_text.png',
+                  width: 150,
+                  height: 150,
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -9,8 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:uuid/uuid.dart';
 
-import 'package:streetmarket/custom_widgets/small_widgets.dart';
-
 import '../models/UserData.dart';
 
 class PostProduct extends StatefulWidget {
