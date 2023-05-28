@@ -19,6 +19,7 @@ dependencies:
   firebase_storage: ^11.2.1
   flutter_image: ^4.1.6
   uuid: ^3.0.7
+  firestore_search_input: ^0.2.0
 
 dev_dependencies:
   flutter_test:
