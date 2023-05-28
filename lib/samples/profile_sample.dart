@@ -112,13 +112,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.of(context).pushNamed('/main_screen_login');
+                Navigator.of(context).popAndPushNamed('/main_screen_login');
               },
               child: Icon(Icons.home, color: Colors.black),
             ),
