@@ -92,35 +92,36 @@ class _MainScreenState extends State<MainScreen> {
                       child: Column(
                         children: [
                           const SizedBox(
-                            height: 50,
+                            height: 60,
                           ),
                           Container(
                             width: $screenWidth,
-                            height: 50,
+                            height: 60,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'Products related to "',
+                                  'Products related to ',
                                   style: GoogleFonts.inter(
                                     color: $gray,
-                                    fontSize: 2,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
                                 Text(
-                                  'Searched Text',
-                                  
-                                ),
-                                Text(
-                                  '"',
-                                  
+                                  //TODO: Replacement for variable
+                                  '"Searched Text"',
+                                  style: GoogleFonts.inter(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold
+                                  ),
                                 ),
                               ],
                             ),
                           ),
                           const SizedBox(
-                            height: 35,
+                            height: 10,
                           ),
                           // ignore: sized_box_for_whitespace
                           Container(
@@ -146,11 +147,11 @@ class _MainScreenState extends State<MainScreen> {
                       height: 20,
                     ),
                     //! Part as TODO: for a loop maybe?
-                    Container(
-                      color: Colors.red,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                    )
+                    // Container(
+                    //   color: Colors.red,
+                    //   width: MediaQuery.of(context).size.width,
+                    //   height: MediaQuery.of(context).size.height,
+                    // )
                   ],
                 ),
               ),
