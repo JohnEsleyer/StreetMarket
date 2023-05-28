@@ -180,10 +180,11 @@ packages:
   firestore_search_input:
     dependency: "direct main"
     description:
-      name: firestore_search_input
-      sha256: ddd073ff3de140038c50e5763f93b6e15a51cc47df262c6ecb18644e04ee76fc
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "7958fa618a74911243c6f7887bdc5aac41f056d0"
+      url: "https://github.com/JohnEsleyer/firestore_search_input"
+    source: git
     version: "0.2.0"
   flutter:
     dependency: "direct main"
