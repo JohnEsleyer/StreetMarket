@@ -7,6 +7,8 @@ import 'package:streetmarket/samples/profile_sample.dart';
 import '../models/UserData.dart';
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }
