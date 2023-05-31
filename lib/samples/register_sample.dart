@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:streetmarket/samples/profile_sample.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../models/UserData.dart';
 
@@ -25,7 +28,9 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  void _submitForm() async {
+  void _submitForm(BuildContext context) async {
+    var model = Provider.of<UserModel>(context, listen: false);
+
     if (_formKey.currentState!.validate()) {
       // Form is valid, perform registration logic here
       String email = _emailController.text;
@@ -39,11 +44,24 @@ class _RegisterFormState extends State<RegisterForm> {
           password: password,
         );
 
-        Provider.of<UserModel>(context).name = name;
-        Provider.of<UserModel>(context).email = email;
-        Provider.of<UserModel>(context).password = password;
+        model.setId(credential.user?.uid);
 
-        print('Credential: $credential');
+        // Document for the user
+        DocumentReference userDocument = FirebaseFirestore.instance
+            .collection('Users')
+            .doc(credential.user?.uid);
+
+        print('UID: ${credential.user?.uid}');
+        model.setUserCred(credential);
+
+        // Write data to the document
+        await userDocument.set({
+          'name': name,
+          'email': email,
+        });
+
+        FirebaseAuth.instance.signOut();
+        Navigator.of(context).pushNamed('/login');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -68,58 +86,81 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your email';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter a password';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _confirmPasswordController,
-            decoration: InputDecoration(labelText: 'Confirm Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please confirm your password';
-              }
-              if (value != _passwordController.text) {
-                return 'Passwords do not match';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
-            controller: _nameController,
-            decoration: InputDecoration(labelText: 'Name'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your name';
-              }
-              return null;
-            },
-          ),
-          ElevatedButton(
-            onPressed: _submitForm,
-            child: Text('Register'),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter a password';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  decoration: InputDecoration(labelText: 'Confirm Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: InputDecoration(labelText: 'Name'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your name';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _submitForm(context);
+                  },
+                  child: Text('Register'),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, '/login');
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Already have an account? Click here to log in",
+                      style: TextStyle(
+                        color: Colors.amber,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

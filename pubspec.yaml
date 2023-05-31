@@ -17,6 +17,18 @@ dependencies:
   firebase_auth: ^4.6.1
   cloud_firestore: ^4.7.1
   provider: ^6.0.5
+  image_picker: ^0.8.7+5
+  firebase_storage: ^11.2.1
+  flutter_image: ^4.1.6
+  uuid: ^3.0.7
+  # firestore_search_input: ^0.2.0
+
+  firestore_search_input:
+    git:
+      url: https://github.com/JohnEsleyer/firestore_search_input
+  url_launcher: ^6.1.11
+  maps_launcher: ^2.2.0
+
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +43,8 @@ flutter:
        - assets/
        - assets/streetmarket_icon.png
        - assets/streetmarket_text.png
+       - assets/background.jpg
+       - assets/icon2.png
   # fonts:
   #   - family: Schyler
   #     fonts:

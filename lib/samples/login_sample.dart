@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:streetmarket/samples/profile_sample.dart';
+
+import '../models/UserData.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -27,8 +32,26 @@ class _LoginFormState extends State<LoginForm> {
       String password = _passwordController.text;
 
       try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
+        var model = Provider.of<UserModel>(context, listen: false);
+        var auth = FirebaseAuth.instance;
+        final credential = await auth.signInWithEmailAndPassword(
+            email: email, password: password);
+        var userCollection = FirebaseFirestore.instance.collection('Users');
+        var documentReference = userCollection.doc(credential.user?.uid);
+
+        documentReference.get().then((documentSnapshot) {
+          // Access the data in the document
+          final data = documentSnapshot.data();
+
+          // Print the data
+          print(data);
+        });
+
+        model.setUserDoc(documentReference);
+        model.setUserCred(credential);
+        model.setUserCollection(userCollection);
+        model.setId(credential.user?.uid);
+        Navigator.of(context).popAndPushNamed('/profile');
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           print('No user found for that email.');
@@ -44,41 +67,62 @@ class _LoginFormState extends State<LoginForm> {
         }
       });
 
-      // Reset form after successful login
-      _formKey.currentState!.reset();
+      // // Reset form after successful login
+      // _formKey.currentState!.reset();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextFormField(
-            controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your email';
-              }
-              return null;
-            },
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: _emailController,
+                  decoration: InputDecoration(labelText: 'Email'),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your email';
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: _passwordController,
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                ),
+                ElevatedButton(
+                  onPressed: _submitForm,
+                  child: Text('Login'),
+                ),
+              ],
+            ),
           ),
-          TextFormField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-            validator: (value) {
-              if (value!.isEmpty) {
-                return 'Please enter your password';
-              }
-              return null;
+          GestureDetector(
+            onTap: () {
+              Navigator.popAndPushNamed(context, '/register');
             },
-          ),
-          ElevatedButton(
-            onPressed: _submitForm,
-            child: Text('Login'),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Create new account",
+                style: TextStyle(
+                  color: Colors.amber,
+                ),
+              ),
+            ),
           ),
         ],
       ),
