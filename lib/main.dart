@@ -56,7 +56,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => LoginForm(), // First screen to open
+          '/': (context) => SignInScreen(),
+          // '/': (context) => LoginForm(), // First screen to open
           '/profile': (context) => UserProfileScreen(),
           '/login': (context) => LoginForm(),
           '/register': (context) => RegisterForm(),

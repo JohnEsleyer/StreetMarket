@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:streetmarket/samples/view_product.dart';
+import 'package:streetmarket/screens/view_product.dart';
 
 import '../models/UserData.dart';
 
