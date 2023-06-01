@@ -22,8 +22,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   late User? user;
 
   final storage = FirebaseStorage.instance;
-
+  String backgroundURL =
+      'https://images.pexels.com/photos/2441454/pexels-photo-2441454.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
   String profileURL = "";
+
   late File imageFile = File.fromUri(Uri.http(
       'https://static.vecteezy.com/system/resources/previews/018/753/399/non_2x/naruto-chibi-icon-cute-free-vector.jpg'));
 
@@ -43,11 +45,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     Reference imageRef =
         FirebaseStorage.instance.ref().child('users/${user?.uid}/profile.jpg');
 
+    // Get the reference to the background from Firebase storage
+    Reference backgroundRef = FirebaseStorage.instance
+        .ref()
+        .child('users/${user?.uid}/background.jpg');
+
     // Get the download URL for the image
     imageRef.getDownloadURL().then((url) {
       setState(() {
         // Create an Image widget with the download URL
         profileURL = url;
+      });
+    });
+
+    backgroundRef.getDownloadURL().then((url) {
+      setState(() {
+        // Create an Image widget with the download URL
+        backgroundURL = url;
       });
     });
   }
@@ -81,8 +95,32 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     }
   }
 
+  Future<void> uploadBackgroundImage(String? userId) async {
+    print("upload Image executed!");
+    if (imageFile == null) {
+      // Handle the case where no image file is available
+      return;
+    }
+
+    try {
+      final storageRef =
+          FirebaseStorage.instance.ref().child('users/$_id/background.jpg');
+      await storageRef.putFile(imageFile);
+
+      storageRef.getDownloadURL().then((url) {
+        setState(() {
+          // Create an Image widget with the download URL
+          backgroundURL = url;
+        });
+      });
+
+      print('Image uploaded successfully!');
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
+
   Future<void> pickImage(UserModel model) async {
-    print("pressed");
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
@@ -90,6 +128,19 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       imageFile = File(pickedImage.path);
 
       uploadImage(model.getUserCred.user?.uid);
+
+      // Perform any additional actions with the image file, if needed
+    }
+  }
+
+  Future<void> pickBackgroundImage(UserModel model) async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      imageFile = File(pickedImage.path);
+
+      uploadBackgroundImage(model.getUserCred.user?.uid);
 
       // Perform any additional actions with the image file, if needed
     }
@@ -122,8 +173,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               Stack(
                 alignment: Alignment.topLeft,
                 children: [
-                  Image.asset(
-                    'assets/background.jpg',
+                  Image.network(
+                    backgroundURL,
                     fit: BoxFit.cover,
                     height: MediaQuery.of(context).size.height * 0.25,
                     width: double.infinity,
@@ -175,9 +226,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      pickImage(model);
+                      pickBackgroundImage(model);
                     },
-                    child: Icon(Icons.edit),
+                    child: Icon(Icons.edit, color: Colors.white),
                   ),
                 ],
               ),
