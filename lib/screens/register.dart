@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:streetmarket/screens/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,7 +20,10 @@ class _RegisterFormState extends State<RegisterForm> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   final _nameController = TextEditingController();
-
+  Color $whitesh = const Color(0xffF5F4F7);
+  Color $mustard = const Color(0xffF4C900);
+  Color $gray = const Color(0xff595757);
+  Color $error = const Color(0xffED4337);
   @override
   void dispose() {
     _emailController.dispose();
@@ -62,6 +67,12 @@ class _RegisterFormState extends State<RegisterForm> {
 
         FirebaseAuth.instance.signOut();
         Navigator.of(context).pushNamed('/login');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+                "Account successfully created, please sign in with that account"),
+          ),
+        );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -86,83 +97,198 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+    var $screenWidth = MediaQuery.of(context).size.width;
+    var $screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(labelText: 'Email'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter a password';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _confirmPasswordController,
-                  decoration: InputDecoration(labelText: 'Confirm Password'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please confirm your password';
-                    }
-                    if (value != _passwordController.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  controller: _nameController,
-                  decoration: InputDecoration(labelText: 'Name'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your name';
-                    }
-                    return null;
-                  },
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    _submitForm(context);
-                  },
-                  child: Text('Register'),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.popAndPushNamed(context, '/login');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Already have an account? Click here to log in",
-                      style: TextStyle(
-                        color: Colors.amber,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 90),
+            Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/streetmarket_logo_r1_colored.png',
+                      width: 80,
+                    ),
+                    Image.asset(
+                      'assets/streetmarket_r1_colored.png',
+                      width: $screenWidth - 150,
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Neumorphic(
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        depth: -3.5,
+                        intensity: 0.8,
+                        color: $whitesh,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(height: 10),
+                    Neumorphic(
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        depth: -3.5,
+                        intensity: 0.8,
+                        color: $whitesh,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter a password';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Neumorphic(
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        depth: -3.5,
+                        intensity: 0.8,
+                        color: $whitesh,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: TextFormField(
+                          controller: _confirmPasswordController,
+                          decoration: InputDecoration(
+                            labelText: 'Confirm Password',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          obscureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please confirm your password';
+                            }
+                            if (value != _passwordController.text) {
+                              return 'Passwords do not match';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Neumorphic(
+                      style: NeumorphicStyle(
+                        shape: NeumorphicShape.flat,
+                        depth: -3.5,
+                        intensity: 0.8,
+                        color: $whitesh,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15),
+                        child: TextFormField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            labelText: 'Display Name',
+                            labelStyle: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    NeumorphicButton(
+                      onPressed: () {
+                        _submitForm(context);
+                      },
+                      style: NeumorphicStyle(
+                          color: $mustard,
+                          shape: NeumorphicShape.flat,
+                          depth: 2,
+                          intensity: 1,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              BorderRadius.circular(15))),
+                      child: SizedBox(
+                        width: $screenWidth - 300,
+                        height: 27,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Sign Up',
+                            style: GoogleFonts.inter(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Already have an account? ',
+                          style: GoogleFonts.inter(
+                            fontSize: 10,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.popAndPushNamed(context, '/login');
+                          },
+                          child: Text(
+                            'Sign In',
+                            style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
