@@ -19,9 +19,9 @@ import 'package:streetmarket/screens/view_product.dart';
 
 import 'components/search_bar.dart';
 import 'components/product_card.dart';
-import 'samples/register_sample.dart';
-import 'samples/login_sample.dart';
-import 'samples/main_screen_sample.dart';
+import 'screens/register.dart';
+import 'screens/login.dart';
+import 'screens/main_screen.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
