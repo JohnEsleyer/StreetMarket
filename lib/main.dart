@@ -9,13 +9,13 @@ import 'package:streetmarket/components/signin.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:streetmarket/samples/main_screen_logged_in.dart';
-import 'package:streetmarket/samples/main_screen_sample.dart';
+import 'package:streetmarket/screens/main_screen_logged_in.dart';
+import 'package:streetmarket/screens/main_screen.dart';
 import 'package:streetmarket/models/UserData.dart';
-import 'package:streetmarket/samples/post_product_sample.dart';
-import 'package:streetmarket/samples/profile_sample.dart';
-import 'package:streetmarket/samples/search_mode.dart';
-import 'package:streetmarket/samples/view_product.dart';
+import 'package:streetmarket/screens/post_product.dart';
+import 'package:streetmarket/screens/profile.dart';
+import 'package:streetmarket/screens/search_mode.dart';
+import 'package:streetmarket/screens/view_product.dart';
 
 import 'components/search_bar.dart';
 import 'components/product_card.dart';
@@ -56,8 +56,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         routes: {
-          '/': (context) => SignInScreen(),
-          // '/': (context) => LoginForm(), // First screen to open
+          // '/': (context) => SignInScreen(),
+          '/': (context) => LoginForm(), // First screen to open
           '/profile': (context) => UserProfileScreen(),
           '/login': (context) => LoginForm(),
           '/register': (context) => RegisterForm(),
