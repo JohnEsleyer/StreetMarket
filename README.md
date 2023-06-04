@@ -2,8 +2,11 @@
 <img src="https://github.com/JohnEsleyer/StreetMarket/assets/66754038/5cb3d052-33bc-43ee-bfba-7e3a815fe579" width="300">
 
 # StreetMarket
-Street Market is a great way for individuals to connect with their local community and find unique products that they may not be able to find elsewhere. It's also a great way for local businesses to showcase their products and reach a wider audience. Whether you're looking to buy or sell, Street Market is the perfect app to help you connect with your local community and discover new products.
+Street Market is a mobile application built for Koronadal City to help its citizens expose their products to their community. The app's primary objective is to uplift and amplify local businesses, ensuring they receive the recognition they deserve within their immediate vicinity.
 
-This app will be built with Flutter and Firebase and it will serve as my final project for my CSCC106 subject. 
+This app was built with Flutter and Firebase and served as my final project for my CSCC106 subject. 
 
-Figma: https://www.figma.com/file/XCmu1PrlBSgBeGdNhn8wt4/CSCC-106?type=design&node-id=0-1&t=cQJ0jo2vZc8ruYwm-0
+
+![image](https://github.com/JohnEsleyer/StreetMarket/assets/66754038/c512ee0a-c129-4de1-a478-14c3aa3f296d)
+![image](https://github.com/JohnEsleyer/StreetMarket/assets/66754038/612f0c7d-0d2b-49b2-8359-2d6afc22a9fc)
+
